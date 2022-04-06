@@ -37,7 +37,8 @@ class Controller {
       case '/noteadd':
         return MaterialPageRoute(builder: (_) => NoteAdd());
       case '/notesdetay':
-        return MaterialPageRoute(builder: (_) => const NotesDetay(index: 2));
+        var data = settings.arguments as int;
+        return MaterialPageRoute(builder: (_) => NotesDetay(index: data));
       case '/loginpage':
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case '/googlemap':

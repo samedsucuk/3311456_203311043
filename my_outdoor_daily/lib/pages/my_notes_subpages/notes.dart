@@ -24,12 +24,21 @@ class _NotesState extends State<Notes> {
         itemCount: DataControl.notes.length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
-              child: ListTile(
-            onTap: () {
-              Navigator.pushNamed(context, '/notesdetay');
+              child: Dismissible(
+            key: UniqueKey(),
+            direction: DismissDirection.endToStart,
+            onDismissed: (_) {
+              setState(() {
+                DataControl.removeNode(index);
+              });
             },
-            title: Text(DataControl.notes[index].title),
-            subtitle: Text(DataControl.notes[index].title),
+            child: ListTile(
+              onTap: () {
+                Navigator.pushNamed(context, '/notesdetay', arguments: index);
+              },
+              title: Text(DataControl.notes[index].content),
+              subtitle: Text(DataControl.notes[index].title),
+            ),
           ));
         },
       ),

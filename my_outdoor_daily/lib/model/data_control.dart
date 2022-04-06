@@ -6,4 +6,8 @@ class DataControl {
   static addNode(NodeModel addNote) {
     notes.add(addNote);
   }
+
+  static removeNode(int index) {
+    notes.removeAt(index);
+  }
 }
