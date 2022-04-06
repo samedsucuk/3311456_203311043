@@ -36,8 +36,8 @@ class _NotesState extends State<Notes> {
               onTap: () {
                 Navigator.pushNamed(context, '/notesdetay', arguments: index);
               },
-              title: Text(DataControl.notes[index].content),
-              subtitle: Text(DataControl.notes[index].title),
+              title: Text(DataControl.notes[index].title),
+              subtitle: Text(DataControl.notes[index].content),
             ),
           ));
         },
