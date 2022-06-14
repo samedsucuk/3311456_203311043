@@ -5,12 +5,13 @@ import 'package:my_outdoor_daily/pages/activities_subpages/camping/camping_equip
 import 'package:my_outdoor_daily/pages/activities_subpages/climbing/climbing_clothings.dart';
 import 'package:my_outdoor_daily/pages/activities_subpages/climbing/climbing_equipments.dart';
 import 'package:my_outdoor_daily/pages/activities_subpages/climbing/climbing_places.dart';
+import 'package:my_outdoor_daily/pages/dont_forget.dart';
 import 'package:my_outdoor_daily/pages/login_page.dart';
 import 'package:my_outdoor_daily/pages/main_page.dart';
 import 'package:my_outdoor_daily/pages/my_notes.dart';
 import 'package:my_outdoor_daily/pages/my_notes_subpages/note_add.dart';
 import 'package:my_outdoor_daily/pages/my_notes_subpages/notes.dart';
-import 'package:my_outdoor_daily/pages/my_notes_subpages/notes_detay.dart';
+import 'package:my_outdoor_daily/pages/weather.dart';
 import '../main.dart';
 import '../pages/activities_subpages/camping/camping.dart';
 import '../pages/activities_subpages/camping/camping_places.dart';
@@ -19,6 +20,7 @@ import '../pages/activities_subpages/trekking/trekking.dart';
 import '../pages/activities_subpages/trekking/trekking_clothings.dart';
 import '../pages/activities_subpages/trekking/trekking_equipments.dart';
 import '../pages/activities_subpages/trekking/trekking_places.dart';
+import '../pages/camp_date_time.dart';
 import '../pages/google_maps.dart';
 
 class Controller {
@@ -32,17 +34,21 @@ class Controller {
         return MaterialPageRoute(builder: (_) => const Activities());
       case '/mynotes':
         return MaterialPageRoute(builder: (_) => const MyNotes());
+      case '/dontforget':
+        return MaterialPageRoute(builder: (_) => const DontForget());
+      case '/googlemap':
+        return MaterialPageRoute(builder: (_) => const MapSample());
+      case '/weather':
+        return MaterialPageRoute(builder: (_) => const Weather());
+      case '/campdatetime':
+        return MaterialPageRoute(builder: (_) => const CampDateTime());
       case '/notes':
         return MaterialPageRoute(builder: (_) => const Notes());
       case '/noteadd':
-        return MaterialPageRoute(builder: (_) => NoteAdd());
-      case '/notesdetay':
-        var data = settings.arguments as int;
-        return MaterialPageRoute(builder: (_) => NotesDetay(index: data));
+        return MaterialPageRoute(builder: (_) => const NoteAdd());
+
       case '/loginpage':
         return MaterialPageRoute(builder: (_) => const LoginPage());
-      case '/googlemap':
-        return MaterialPageRoute(builder: (_) => const MapSample());
       case '/camping':
         return MaterialPageRoute(builder: (_) => const Camping());
       case '/climbing':

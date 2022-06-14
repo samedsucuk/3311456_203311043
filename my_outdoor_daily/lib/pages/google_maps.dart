@@ -15,18 +15,18 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar   (backgroundColor: Colors.black,
-          centerTitle: true,
-          title: const Text(
-            "WELCOME",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          ),    
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        title: const Text(
+          "MAP",
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ),
       ),
       body: GoogleMap(
-        mapType: MapType.hybrid,  
+        mapType: MapType.hybrid,
         initialCameraPosition: const CameraPosition(
-        target: LatLng(38.0286349,32.5071287),
-        zoom: 15),
+            target: LatLng(38.0286349, 32.5071287), zoom: 15),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },

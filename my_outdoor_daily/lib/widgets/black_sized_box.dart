@@ -17,7 +17,7 @@ class _BlackSizedBoxState extends State<BlackSizedBox> {
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.only(
-            top: 7.0, bottom: 7.0, left: 15.0, right: 15.0),
+            top: 5.0, bottom: 5.0, left: 15.0, right: 15.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -26,7 +26,7 @@ class _BlackSizedBoxState extends State<BlackSizedBox> {
                 Navigator.pushNamed(context, widget.target);
               }),
               child: Container(
-                height: 100,
+                height: 70,
                 width: 360,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),

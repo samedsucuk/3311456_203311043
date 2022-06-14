@@ -1,6 +1,9 @@
 // ignore_for_file: deprecated_member_use
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_outdoor_daily/pages/main_page.dart';
+import 'package:my_outdoor_daily/pages/register_page.dart';
+import 'package:my_outdoor_daily/service/auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -10,12 +13,36 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String? username;
-  String? password;
-  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  // ignore: prefer_final_fields
+  AuthService _authService = AuthService();
+  late FirebaseAuth _auth;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _auth = FirebaseAuth.instance;
+  }
 
   @override
   Widget build(BuildContext context) {
+    @override
+    void initState() {
+      super.initState();
+      _auth = FirebaseAuth.instance;
+
+      _auth.authStateChanges().listen((User? user) {
+        if (user == null) {
+          debugPrint('kullanıcı yok!');
+        } else {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const MainPage()));
+        }
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -28,7 +55,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: SingleChildScrollView(
         child: Form(
-          key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -39,23 +65,15 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                       ),
-                      labelText: "Kullanıcı Adı",
+                      labelText: "E-Mail",
                       labelStyle: TextStyle(color: Colors.black),
                       border: OutlineInputBorder()),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Kullanıcı Adını Giriniz";
-                    } else {
-                      return null;
-                    }
-                  },
-                  onSaved: (kullaniciadi) {
-                    username = kullaniciadi;
-                  },
                 ),
               ),
               const SizedBox(
@@ -64,66 +82,49 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                 child: TextFormField(
+                  controller: _passwordController,
+                  obscureText: true,
                   decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                       ),
-                      labelText: "Şifre",
+                      labelText: "Password",
                       labelStyle: TextStyle(color: Colors.black),
                       border: OutlineInputBorder()),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Şifrenizi Giriniz";
-                    } else {
-                      return null;
-                    }
-                  },
-                  onSaved: (sifre) {
-                    password = sifre;
-                  },
-                  obscureText: true,
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  MaterialButton(child: const Text('Üye Ol'), onPressed: () {}),
                   MaterialButton(
-                      child: const Text('Şifremi Unuttum'), onPressed: () {})
+                      child: const Text('Register'),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RegisterPage()));
+                      }),
                 ],
               ),
-              _loginButton()
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.black),
+                  onPressed: () async {
+                    try {
+                      await _auth
+                          .signInWithEmailAndPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text)
+                          .then((value) => Navigator.pushReplacementNamed(
+                              context, "/mainpage"));
+                    } catch (e) {
+                      print(e.toString());
+                    }
+                  },
+                  child: const Text("LOGIN"))
             ],
           ),
         ),
       ),
     );
   }
-
-  Widget _loginButton() => RaisedButton(
-        child: const Text("Giriş Yap"),
-        onPressed: () {
-          if (_formKey.currentState!.validate()) {
-            _formKey.currentState?.save();
-            if (username == "admin" && password == "admin") {
-              Navigator.pushReplacementNamed(context, "/mainpage");
-            } else {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text("Hata"),
-                      content: const Text("Giriş Bilgileriniz Hatalı"),
-                      actions: <Widget>[
-                        MaterialButton(
-                          child: const Text("Geri Dön"),
-                          onPressed: () => Navigator.pop(context),
-                        )
-                      ],
-                    );
-                  });
-            }
-          }
-        },
-      );
 }

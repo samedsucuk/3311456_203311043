@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "488737656648",
+    "project_id": "my-outdoor-daily-8ce1c",
+    "storage_bucket": "my-outdoor-daily-8ce1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488737656648:android:93d76b00ee314c8da92d7d",
+        "android_client_info": {
+          "package_name": "com.example.my_outdoor_daily"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488737656648-i4osefvuvcuom1kq6tti917n2o0fuglu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCct-rdinuD4Ek4140u4irzyx57qh6KTGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488737656648-i4osefvuvcuom1kq6tti917n2o0fuglu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

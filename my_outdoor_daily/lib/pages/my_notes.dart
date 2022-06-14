@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../widgets/imaged_sized_box.dart';
 
-class MyNotes extends StatelessWidget {
+class MyNotes extends StatefulWidget {
   const MyNotes({Key? key}) : super(key: key);
 
+  @override
+  State<MyNotes> createState() => _MyNotesState();
+}
+
+class _MyNotesState extends State<MyNotes> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +37,9 @@ class MyNotes extends StatelessWidget {
                   title: "Add Note",
                   target: "/noteadd",
                   imagetarget: "assets/images/noteadd.png",
+                ),
+                Lottie.asset(
+                  'assets/animations/mynotescamping.json',
                 ),
               ],
             )
